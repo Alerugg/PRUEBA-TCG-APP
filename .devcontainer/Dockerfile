@@ -2,6 +2,12 @@ FROM mcr.microsoft.com/devcontainers/python:0-3.10
 
 ENV PYTHONUNBUFFERED=1
 
+# Keep base image simple/stable and ensure npm is always present.
+RUN apt-get update \
+    && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends postgresql-client nodejs npm \
+    && node --version \
+    && npm --version \
 # Install PostgreSQL client + Node.js/npm explicitly so npm exists even if devcontainer features are skipped.
 RUN apt-get update \
     && export DEBIAN_FRONTEND=noninteractive \

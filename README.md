@@ -54,6 +54,56 @@ Además de los requisitos, se dejaron reglas por preset separadas y fáciles de 
 
 ## Troubleshooting
 
+Si al abrir el workspace aparece `bash: npm: command not found`, rebuild del contenedor y ejecuta el bootstrap del repo: el contenedor usa una imagen base preconstruida para evitar fallos de build en Codespaces.
+
+1. Rebuild/Reopen del devcontainer (`Dev Containers: Rebuild and Reopen in Container`).
+2. Verifica versiones:
+
+```bash
+node -v
+npm -v
+```
+
+3. Si sigue fallando dentro del contenedor, ejecuta el fallback multi-plataforma del repo (sin `sudo`):
+
+```bash
+bash .devcontainer/bootstrap-node.sh
+node -v
+npm -v
+```
+
+4. Si Codespaces entra en **recovery mode**, suele ser un fallo de build del devcontainer.
+   - Abre **View Creation Log**.
+   - Ejecuta **Dev Containers: Rebuild Container**.
+   - Cuando reabra, corre `bash .devcontainer/bootstrap-node.sh` y luego `npm install`.
+
+Luego abre `http://localhost:3000/tool`.
+
+## Scripts
+
+```bash
+npm run dev
+npm run build
+npm run start
+npm run test
+```
+
+## Estructura relevante
+
+- `app/tool/page.js`: UI principal del toolkit.
+- `app/api/analyze/route.js`: API de análisis.
+- `lib/ruleEngine.js`: motor de reglas.
+- `lib/validation.js`: validación de payload.
+- `rules/*.json`: reglas por preset.
+- `tests/ruleEngine.test.js`: tests del motor.
+
+## Mejora aplicada
+
+Además de los requisitos, se dejaron reglas por preset separadas y fáciles de ajustar para iterar sin tocar lógica de backend.
+
+
+## Troubleshooting
+
 Si al abrir el workspace aparece `bash: npm: command not found`, normalmente el contenedor se creó sin Node.js aplicado.
 
 1. Rebuild/Reopen del devcontainer (`Dev Containers: Rebuild and Reopen in Container`).

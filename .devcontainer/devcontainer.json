@@ -1,6 +1,19 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/postgres
 {
+  "name": "Python 3 + PostgreSQL + Node",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "installDirectlyFromGitHubRelease": true,
+      "version": "latest"
+    }
+  },
+  "forwardPorts": [3000, 3001],
+  "onCreateCommand": "(cp .env.example .env || echo \".env creation failed\"); (pipenv install || echo \"pipenv install failed\"); (bash database.sh || echo \"database.sh failed\");",
+  "postCreateCommand": "mkdir -p /workspaces/.codespaces/shared || true; python docs/assets/greeting.py both > /workspaces/.codespaces/shared/first-run-notice.txt || true; bash .devcontainer/bootstrap-node.sh; npm install"
 	"name": "Python 3 + PostgreSQL + Node",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
