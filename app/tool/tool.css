@@ -1,0 +1,95 @@
+.tool-page {
+  max-width: 1080px;
+  margin: 2rem auto;
+  padding: 0 1rem 2rem;
+}
+
+.tool-shell {
+  border: 1px solid var(--line);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01));
+  border-radius: 36px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  padding: 1.25rem;
+}
+
+.tool-header {
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: var(--panel);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.badge-collage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-top: .75rem;
+}
+
+.badge-collage span {
+  border: 1px solid #3b4250;
+  border-radius: 999px;
+  padding: .35rem .75rem;
+  font-size: .78rem;
+  color: var(--silver);
+  background: #12151b;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: .8rem;
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--panel);
+  padding: .85rem;
+}
+
+.field label { display: block; font-size: .8rem; color: #cbd5e1; margin-bottom: .35rem; }
+
+select, textarea, button {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid #414858;
+  background: #0f1218;
+  color: #f8fafc;
+  padding: .62rem .7rem;
+}
+
+textarea { min-height: 96px; resize: vertical; }
+
+.flags { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: .45rem; }
+.flags label { border: 1px solid #353b47; border-radius: 12px; padding: .5rem .6rem; display: flex; gap: .45rem; align-items: flex-start; background: #0f1218; }
+
+.submit-btn {
+  margin-top: .7rem;
+  border-radius: 999px;
+  padding: .85rem 1.2rem;
+  background: linear-gradient(90deg, #f5f7fa, #bfc7d5);
+  color: #111827;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.result {
+  margin-top: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: 1rem;
+  background: var(--panel-soft);
+}
+
+.row { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: .8rem; }
+
+.mini-btn {
+  width: auto;
+  display: inline-block;
+  margin-left: .5rem;
+  padding: .3rem .65rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
