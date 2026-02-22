@@ -1,0 +1,24 @@
+:root {
+  --bg: #090a0d;
+  --panel: #111317;
+  --panel-soft: #171a1f;
+  --silver: #c6ccd6;
+  --silver-strong: #f2f4f8;
+  --line: #2d323b;
+  --accent: #9ca3af;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.08), transparent 26%),
+    radial-gradient(circle at 100% 100%, rgba(198, 204, 214, 0.12), transparent 32%),
+    var(--bg);
+  color: var(--silver-strong);
+  min-height: 100%;
+}
+
+a { color: #e2e8f0; }
