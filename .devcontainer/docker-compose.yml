@@ -1,10 +1,7 @@
-version: '3.8'
-
 services:
   app:
-    build:
-      context: ..
-      dockerfile: .devcontainer/Dockerfile
+    # Use a prebuilt base image to avoid custom image build failures in Codespaces.
+    image: mcr.microsoft.com/devcontainers/python:0-3.10
 
     volumes:
       - ../..:/workspaces:cached
