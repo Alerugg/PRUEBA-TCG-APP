@@ -70,3 +70,25 @@ npm -v
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
+
+## Scripts
+
+```bash
+npm run dev
+npm run build
+npm run start
+npm run test
+```
+
+## Estructura relevante
+
+- `app/tool/page.js`: UI principal del toolkit.
+- `app/api/analyze/route.js`: API de análisis.
+- `lib/ruleEngine.js`: motor de reglas.
+- `lib/validation.js`: validación de payload.
+- `rules/*.json`: reglas por preset.
+- `tests/ruleEngine.test.js`: tests del motor.
+
+## Mejora aplicada
+
+Además de los requisitos, se dejaron reglas por preset separadas y fáciles de ajustar para iterar sin tocar lógica de backend.
