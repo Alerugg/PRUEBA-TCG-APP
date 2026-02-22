@@ -1,0 +1,150 @@
+{
+  "base_score": 38,
+  "select_rules": {
+    "seller_reputation": {
+      "excellent": {
+        "score": -18,
+        "reason": "Vendedor con reputación excelente."
+      },
+      "good": {
+        "score": -8,
+        "reason": "Vendedor con historial razonable."
+      },
+      "new": {
+        "score": 8,
+        "reason": "Cuenta nueva o con pocas ventas."
+      },
+      "suspicious": {
+        "score": 24,
+        "reason": "Patrón de reputación sospechoso."
+      }
+    },
+    "payment_protection": {
+      "full": {
+        "score": -16,
+        "reason": "Pago protegido por la plataforma."
+      },
+      "partial": {
+        "score": 8,
+        "reason": "Cobertura parcial ante incidencias."
+      },
+      "none": {
+        "score": 22,
+        "reason": "Sin protección de pago."
+      }
+    },
+    "shipping_tracking": {
+      "insured": {
+        "score": -8,
+        "reason": "Envío asegurado y trazable."
+      },
+      "tracking_only": {
+        "score": 6,
+        "reason": "Tracking limitado."
+      },
+      "none": {
+        "score": 18,
+        "reason": "No hay trazabilidad de envío."
+      }
+    },
+    "product_evidence": {
+      "graded_or_video": {
+        "score": -10,
+        "reason": "Evidencia fuerte de autenticidad."
+      },
+      "detailed_photos": {
+        "score": -3,
+        "reason": "Fotos detalladas disponibles."
+      },
+      "basic_photos": {
+        "score": 7,
+        "reason": "Evidencia visual insuficiente."
+      },
+      "none": {
+        "score": 20,
+        "reason": "No hay evidencia verificable."
+      }
+    }
+  },
+  "checkbox_rules": [
+    {
+      "field": "price_too_good",
+      "score": 16,
+      "reason": "Precio anormalmente bajo respecto al mercado."
+    },
+    {
+      "field": "seller_pushes_off_platform",
+      "score": 22,
+      "reason": "Quiere cerrar fuera de plataforma."
+    },
+    {
+      "field": "urgent_sale_pressure",
+      "score": 12,
+      "reason": "Presión por cerrar inmediatamente."
+    },
+    {
+      "field": "refuses_timestamp",
+      "score": 18,
+      "reason": "Rechaza prueba con timestamp."
+    },
+    {
+      "field": "inconsistent_story",
+      "score": 14,
+      "reason": "Inconsistencias en la historia del producto."
+    },
+    {
+      "field": "asks_friends_family_payment",
+      "score": 24,
+      "reason": "Solicita método de pago irreversible (Friends & Family)."
+    },
+    {
+      "field": "unwilling_live_verification",
+      "score": 15,
+      "reason": "Evita verificación en vivo del producto/identidad."
+    },
+    {
+      "field": "account_recently_created",
+      "score": 11,
+      "reason": "Cuenta demasiado reciente o con cambios sospechosos."
+    },
+    {
+      "field": "refuses_secure_meeting_point",
+      "score": 13,
+      "reason": "No acepta condiciones de seguridad para la entrega."
+    }
+  ],
+  "action_plan": {
+    "low": [
+      "Mantén el pago protegido y conserva capturas.",
+      "Solicita confirmación final del estado y envío.",
+      "Cierra la operación solo dentro de la plataforma."
+    ],
+    "medium": [
+      "Pide vídeo corto con timestamp y close-ups.",
+      "Solicita envío asegurado y método reversible.",
+      "No pagues hasta validar identidad/reputación."
+    ],
+    "high": [
+      "Detén la operación y no transfieras fondos.",
+      "Reporta el perfil o anuncio a la plataforma.",
+      "Busca alternativas con vendedor verificado."
+    ]
+  },
+  "messages": {
+    "low": [
+      "Riesgo {{score}}/100 en {{preset}}. Avanzo si mantenemos pago protegido y tracking.",
+      "Tu operación marca riesgo bajo ({{score}}). ¿Confirmas envío trazable y estado final?",
+      "Perfecto, riesgo estimado {{score}}/100. Sigamos por canal oficial para cerrar."
+    ],
+    "medium": [
+      "Estoy en riesgo medio ({{score}}/100). Necesito vídeo con timestamp antes de pagar.",
+      "Para seguir con {{preset}}, con riesgo {{score}}, solo acepto pago protegido y envío asegurado.",
+      "Hay señales de riesgo ({{score}}). Si verificamos autenticidad ahora, continúo."
+    ],
+    "high": [
+      "Riesgo alto {{score}}/100. No continuaré fuera de plataforma ni sin protección.",
+      "Con este nivel de riesgo ({{score}}), pauso la operación hasta nueva verificación.",
+      "No puedo avanzar: riesgo {{score}}/100 y faltan garantías clave."
+    ]
+  }
+}
