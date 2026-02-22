@@ -1,81 +1,78 @@
-# WebApp boilerplate with React JS and Flask API
+# AntiScamTcgApp
 
-Build web applications using React.js for the front end and python/flask for your backend API.
+Web app en **Next.js** para estimar riesgo en compraventa de cartas TCG con presets de marketplace.
 
-- Documentation can be found here: https://start.4geeksacademy.com/starters/react-flask
-- Here is a video on [how to use this template](https://www.loom.com/share/f37c6838b3f1496c95111e515e83dd9b)
-- Integrated with Pipenv for package managing.
-- Fast deployment to heroku [in just a few steps here](https://start.4geeksacademy.com/backend/deploy-heroku-posgres).
-- Use of .env file.
-- SQLAlchemy integration for database abstraction.
+## Features
 
-### 1) Installation:
+- Ruta `/tool` con presets: `wallapop`, `vinted`, `ebay`, `cardmarket`, `in_person`.
+- Formulario sin texto libre (excepto `nota opcional`) con red flags ampliadas.
+- Endpoint `POST /api/analyze` que:
+  - Calcula score de riesgo `0-100` usando reglas JSON en `/rules/*.json`.
+  - Devuelve `score`, `band`, `top_reasons` (máx. 5), `action_plan` (3 pasos), `messages` (3 variantes).
+- UI de resultados con semáforo, razones, plan de acción, botones para copiar mensaje y share link, con diseño moderno dark silver.
+- Validación de input con `zod`.
+- Tests básicos del rule engine con `vitest`.
 
-> If you use Github Codespaces (recommended) or Gitpod this template will already come with Python, Node and the Posgres Database installed. If you are working locally make sure to install Python 3.10, Node 
+## Stack
 
-It is recomended to install the backend first, make sure you have Python 3.8, Pipenv and a database engine (Posgress recomended)
+- Next.js 14 (App Router)
+- React 18
+- Zod
+- Vitest
 
-1. Install the python packages: `$ pipenv install`
-2. Create a .env file based on the .env.example: `$ cp .env.example .env`
-3. Install your database engine and create your database, depending on your database you have to create a DATABASE_URL variable with one of the possible values, make sure you replace the valudes with your database information:
+## Cómo correrlo
 
-| Engine    | DATABASE_URL                                        |
-| --------- | --------------------------------------------------- |
-| SQLite    | sqlite:////test.db                                  |
-| MySQL     | mysql://username:password@localhost:port/example    |
-| Postgress | postgres://username:password@localhost:5432/example |
-
-4. Migrate the migrations: `$ pipenv run migrate` (skip if you have not made changes to the models on the `./src/api/models.py`)
-5. Run the migrations: `$ pipenv run upgrade`
-6. Run the application: `$ pipenv run start`
-
-> Note: Codespaces users can connect to psql by typing: `psql -h localhost -U gitpod example`
-
-### Undo a migration
-
-You are also able to undo a migration by running
-
-```sh
-$ pipenv run downgrade
+```bash
+npm install
+npm run dev
 ```
 
-### Backend Populate Table Users
+Luego abre `http://localhost:3000/tool`.
 
-To insert test users in the database execute the following command:
+## Scripts
 
-```sh
-$ flask insert-test-users 5
+```bash
+npm run dev
+npm run build
+npm run start
+npm run test
 ```
 
-And you will see the following message:
+## Estructura relevante
 
+- `app/tool/page.js`: UI principal del toolkit.
+- `app/api/analyze/route.js`: API de análisis.
+- `lib/ruleEngine.js`: motor de reglas.
+- `lib/validation.js`: validación de payload.
+- `rules/*.json`: reglas por preset.
+- `tests/ruleEngine.test.js`: tests del motor.
+
+## Mejora aplicada
+
+Además de los requisitos, se dejaron reglas por preset separadas y fáciles de ajustar para iterar sin tocar lógica de backend.
+
+
+## Troubleshooting
+
+Si al abrir el workspace aparece `bash: npm: command not found`, rebuild del contenedor y ejecuta el bootstrap del repo: el contenedor usa una imagen base preconstruida para evitar fallos de build en Codespaces.
+
+1. Rebuild/Reopen del devcontainer (`Dev Containers: Rebuild and Reopen in Container`).
+2. Verifica versiones:
+
+```bash
+node -v
+npm -v
 ```
-  Creating test users
-  test_user1@test.com created.
-  test_user2@test.com created.
-  test_user3@test.com created.
-  test_user4@test.com created.
-  test_user5@test.com created.
-  Users created successfully!
+
+3. Si sigue fallando dentro del contenedor, ejecuta el fallback multi-plataforma del repo (sin `sudo`):
+
+```bash
+bash .devcontainer/bootstrap-node.sh
+node -v
+npm -v
 ```
 
-### **Important note for the database and the data inside it**
-
-Every Github codespace environment will have **its own database**, so if you're working with more people eveyone will have a different database and different records inside it. This data **will be lost**, so don't spend too much time manually creating records for testing, instead, you can automate adding records to your database by editing ```commands.py``` file inside ```/src/api``` folder. Edit line 32 function ```insert_test_data``` to insert the data according to your model (use the function ```insert_test_users``` above as an example). Then, all you need to do is run ```pipenv run insert-test-data```.
-
-### Front-End Manual Installation:
-
--   Make sure you are using node version 14+ and that you have already successfully installed and runned the backend.
-
-1. Install the packages: `$ npm install`
-2. Start coding! start the webpack dev server `$ npm run start`
-
-## Publish your website!
-
-This boilerplate it's 100% read to deploy with Render.com and Heroku in a matter of minutes. Please read the [official documentation about it](https://start.4geeksacademy.com/deploy).
-
-### Contributors
-
-This template was built as part of the 4Geeks Academy [Coding Bootcamp](https://4geeksacademy.com/us/coding-bootcamp) by [Alejandro Sanchez](https://twitter.com/alesanchezr) and many other contributors. Find out more about our [Full Stack Developer Course](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer), and [Data Science Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/datascience-machine-learning).
-
-You can find other templates and resources like this at the [school github page](https://github.com/4geeksacademy/).
+4. Si Codespaces entra en **recovery mode**, suele ser un fallo de build del devcontainer.
+   - Abre **View Creation Log**.
+   - Ejecuta **Dev Containers: Rebuild Container**.
+   - Cuando reabra, corre `bash .devcontainer/bootstrap-node.sh` y luego `npm install`.
